@@ -3,32 +3,50 @@ let isNumber = function(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
-let gameRandomNumber = function() {
-  let myNumber = 23;
-  let userNumber = prompt ('Угадай число от 1 до 100:');
-  
-  if (!isNumber(userNumber) && userNumber != null) {
-    confirm ('Введи число от 1 до 100:');
-    if (confirm) {
-      gameRandomNumber();
-    } else {
-      alert ('Игра закончена!');
-    }    
-  };
+let myNumber = function(min, max) {
+  let rand = min + Math.random() * (max + 1 - min);
+  return Math.floor(rand);
+};
 
-  if (Number(userNumber) < myNumber && userNumber != null) {
-    alert ('Загаданное число больше!');
-    gameRandomNumber();
-  }
-    if (Number(userNumber) > myNumber && userNumber != null) {
-    alert ('Загаданное число меньше!');
-    gameRandomNumber();
-  }
-    if (Number(userNumber) === myNumber && userNumber != null){
+let getInvitationGame = function() {
+  let userInput = confirm('Отгадаешь число от 1 до 100?');
+
+  if (!userInput) {
+    gameOver();
+  } else {
+    gameContinue();
+  };  
+};
+
+let gameOver = function() {
+  alert('Игра закончена!')
+};
+
+let comparisonNumber = function(n) {
+  if (Number(n) === myNumber(1, 100)){
     alert ('Поздравляю, Вы угадали!');
+    gameOver();
   } 
-  
-  console.log('userNumber: ', userNumber, typeof(userNumber));    
+  if (Number(n) > myNumber(1, 100)) {
+    alert ('Загаданное число меньше!');
+    gameContinue();
+  } 
+  if (Number(n) < myNumber(1, 100)) {
+    alert ('Загаданное число больше!');
+    gameContinue();
+  }; 
+} 
 
-}
-gameRandomNumber();
+let gameContinue = function() {
+  let userNumber = prompt ('Введи число от 1 до 100:');
+    if (!isNumber(userNumber) && userNumber != null) {
+      gameContinue();  
+    } else if (userNumber === null) {
+      gameOver();
+    } else {
+      comparisonNumber(userNumber);
+    }; 
+     
+};
+
+getInvitationGame();
