@@ -1,52 +1,46 @@
 'use strict';
+
 let isNumber = function(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
-let myNumber = function(min, max) {
-  let rand = min + Math.random() * (max + 1 - min);
-  return Math.floor(rand);
-};
+let startGame = function() {
+    let rndNumber = function(min, max) {
+          let rand = min + Math.random() * (max + 1 - min);
+          return Math.floor(rand);
+    };
 
-let getInvitationGame = function() {
-  let userInput = confirm('Отгадаешь число от 1 до 100?');
+    let myNumber = rndNumber(1, 100);
+    console.log('myNumber: ', myNumber);
 
-  if (!userInput) {
-    gameOver();
-  } else {
-    gameContinue();
-  };  
-};
+    alert ('Отгадай число от 1 до 100?');
 
-let gameOver = function() {
-  alert('Игра закончена!')
-};
+      let gameContinue = function() {        
+        
+        let userNumber = prompt ('Введи число от 1 до 100:');
+        console.log('userNumber: ', userNumber);
 
-let comparisonNumber = function(n) {
-  if (Number(n) === myNumber(1, 100)){
-    alert ('Поздравляю, Вы угадали!');
-    gameOver();
-  } 
-  if (Number(n) > myNumber(1, 100)) {
-    alert ('Загаданное число меньше!');
-    gameContinue();
-  } 
-  if (Number(n) < myNumber(1, 100)) {
-    alert ('Загаданное число больше!');
-    gameContinue();
-  }; 
-} 
+        if (userNumber === null) {
+          alert('Игра закончена!')
+        };
 
-let gameContinue = function() {
-  let userNumber = prompt ('Введи число от 1 до 100:');
-    if (!isNumber(userNumber) && userNumber != null) {
-      gameContinue();  
-    } else if (userNumber === null) {
-      gameOver();
-    } else {
-      comparisonNumber(userNumber);
-    }; 
-     
-};
+        if (!isNumber(userNumber) && userNumber != null) {
+          gameContinue();
+        };
+        if (Number(userNumber) === myNumber) {
+          alert ('Поздравляю, Вы угадали!');        
+        }; 
+        if (Number(userNumber) > myNumber) {
+            alert ('Загаданное число меньше!');
+            gameContinue();
+        }; 
+        if (Number(userNumber) < myNumber && userNumber != null) {
+            alert ('Загаданное число больше!');
+            gameContinue();
+        }; 
+    };
 
-getInvitationGame();
+    gameContinue();   
+  };   
+
+startGame();
